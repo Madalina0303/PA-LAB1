@@ -10,9 +10,9 @@ public class Optional {
             System.out.println("Lipseste argumentul");
             System.exit(-1);
         }
-        int n;
+
         try {
-            n = Integer.parseInt(args[0]);
+           int n = Integer.parseInt(args[0]);
             if (n % 2 != 1) {
                 System.out.println("nu este impar");
                 System.exit(-1);
@@ -21,8 +21,8 @@ public class Optional {
             int[][] a = new int[n][n];
             Optional app1 = new Optional();
             app1.generare(n, a);
-            app1.afisare_unicode(n, a);
-            app1.componente_conexe(n, a);
+            app1.afisareUnicode(n, a);
+            app1.componenteConexe(n, a);
             long finish = System.currentTimeMillis();
             long timp = finish - start;
             System.out.println("Timpul in nanosecunde este " + timp);
@@ -32,7 +32,7 @@ public class Optional {
 
     }
 
-    public void componente_conexe(int n, int[][] a) {
+    public void componenteConexe(int n, int[][] a) {
         //facem dfs ca sa aflam cc
         int[] viz = new int[n];
         Arrays.fill(viz, 0);
@@ -51,7 +51,7 @@ public class Optional {
             Arrays.fill(viz, 0);
             Optional app = new Optional();
             int[][] b = new int[n][n];
-            app.dfs_arbore(0, a, n, viz, b);
+            app.dfsArborePartial(0, a, n, viz, b);
             afisare(n, b);
         }
     }
@@ -64,13 +64,13 @@ public class Optional {
                 dfs(k, a, n, viz);
     }
 
-    public void dfs_arbore(int nod, int[][] a, int n, int[] viz, int[][] b) {
+    public void dfsArborePartial(int nod, int[][] a, int n, int[] viz, int[][] b) {
 
         viz[nod] = 1;
         for (int k = 0; k < n; k++)
             if (a[nod][k] == 1 && viz[k] == 0) {
                 b[nod][k] = b[k][nod] = 1;
-                dfs_arbore(k, a, n, viz, b);
+                dfsArborePartial(k, a, n, viz, b);
             }
     }
 
@@ -85,7 +85,7 @@ public class Optional {
         }
     }
 
-    public void afisare_unicode(int n, int[][] a) {
+    public void afisareUnicode(int n, int[][] a) {
         if (n <= 100) {
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
